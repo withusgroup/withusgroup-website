@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withus Group - Inovasi Masa Depan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary: #0a1a3a;
+            --secondary: #1a3a8f;
+            --accent: #ff6b35;
+            --accent-light: #ff9a76;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --gradient: linear-gradient(135deg, var(--secondary) 0%, #2a4db9 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, #ff8a5c 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(26, 58, 143, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 8px 20px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(26, 58, 143, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid rgba(15, 23, 42, 0.1);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--dark);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 8px;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 16px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+        
+        .hero-badge i {
+            font-size: 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .hero-visual {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            height: 70%;
+            z-index: 1;
+        }
+        
+        .floating-card {
+            position: absolute;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-card:nth-child(1) {
+            top: 15%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-card:nth-child(2) {
+            top: 40%;
+            right: 25%;
+            animation-delay: 2s;
+        }
+        
+        .floating-card:nth-child(3) {
+            bottom: 20%;
+            right: 15%;
+            animation-delay: 4s;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .card-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .card-content p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title .subtitle {
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+        }
+        
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+        
+        .about-text p {
+            margin-bottom: 25px;
+            color: var(--gray);
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(26, 58, 143, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .feature-content p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 0;
+        }
+        
+        .about-visual {
+            position: relative;
+            height: 500px;
+        }
+        
+        .visual-main {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .visual-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.8;
+            z-index: 1;
+        }
+        
+        .visual-card {
+            position: absolute;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            width: 250px;
+            z-index: 2;
+        }
+        
+        .visual-card:nth-child(2) {
+            top: 10%;
+            right: 0;
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .visual-card:nth-child(3) {
+            bottom: 10%;
+            left: 0;
+            animation: float 5s ease-in-out infinite 2.5s;
+        }
+        
+        /* Companies Section */
+        .companies {
+            background: var(--light);
+        }
+        
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .company-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .company-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .company-card:hover::before {
+            opacity: 0.03;
+        }
+        
+        .company-header {
+            padding: 30px 30px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .company-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .company-title h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .company-title p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .company-content {
+            padding: 0 30px 30px;
+        }
+        
+        .company-content p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .company-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            background: rgba(15, 23, 42, 0.05);
+            color: var(--dark);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .company-card:hover .tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--gradient);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+        
+        .value-card:hover::before {
+            height: 100%;
+        }
+        
+        .value-card:hover .value-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .value-card:hover h3,
+        .value-card:hover p {
+            color: white;
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(26, 58, 143, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .value-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .value-card p {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,197.3C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta .btn {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .footer-about p {
+            margin-bottom: 25px;
+            color: #94a3b8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .hero-visual {
+                width: 45%;
+            }
+            
+            .about-content {
+                gap: 50px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .hero-visual {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-visual {
+                order: -1;
+                height: 400px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 100px 40px 40px;
+                transition: var(--transition);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .companies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta h2 {
+                font-size: 2.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .company-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="logo-icon">W</div>
+                    <div class="logo-text">WITHUS GROUP</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#companies">Perusahaan</a></li>
+                    <li><a href="#values">Nilai</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="#contact" class="btn btn-outline">Hubungi Kami</a>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-rocket"></i>
+                    <span>Transformasi Digital Masa Depan</span>
+                </div>
+                <h1>Membangun Ekosistem Inovasi yang Mengubah Dunia</h1>
+                <p>Withus Group menghubungkan teknologi, kreativitas, dan kewirausahaan untuk menciptakan solusi berdampak yang membentuk masa depan digital.</p>
+                <div class="hero-actions">
+                    <a href="#about" class="btn btn-primary">Jelajahi Perusahaan</a>
+                    <a href="#contact" class="btn btn-outline">Mulai Kolaborasi</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">9</div>
+                        <div class="stat-label">Perusahaan</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">150+</div>
+                        <div class="stat-label">Profesional</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Tahun Pengalaman</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Visual Elements -->
+        <div class="hero-visual">
+            <div class="floating-card">
+                <div class="card-icon" style="background: #3498db;">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Withus Media</h4>
+                    <p>Platform Berita Digital</p>
+                </div>
+            </div>
+            <div class="floating-card">
+                <div class="card-icon" style="background: #9b59b6;">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Withus Apps</h4>
+                    <p>Pengembangan Aplikasi</p>
+                </div>
+            </div>
+            <div class="floating-card">
+                <div class="card-icon" style="background: #e74c3c;">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Withus Tech</h4>
+                    <p>Riset Teknologi AI</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <div class="subtitle">Tentang Kami</div>
+                <h2>Ekosistem Inovasi yang Terintegrasi</h2>
+                <p>Withus Group adalah perusahaan induk yang menghubungkan berbagai bidang industri melalui teknologi dan kolaborasi untuk menciptakan nilai tambah yang berkelanjutan.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Visi & Misi Perusahaan</h3>
+                    <p>Withus Group berkomitmen untuk menjadi pelopor dalam transformasi digital dengan mengintegrasikan teknologi mutakhir ke dalam berbagai aspek kehidupan dan bisnis.</p>
+                    <p>Kami percaya bahwa kolaborasi antara teknologi, kreativitas, dan kewirausahaan adalah kunci untuk menciptakan solusi yang relevan dan berdampak luas bagi masyarakat.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Fokus pada Inovasi</h4>
+                                <p>Terus mengembangkan solusi teknologi terkini untuk berbagai industri.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Kolaborasi Strategis</h4>
+                                <p>Membangun kemitraan yang saling menguntungkan dengan berbagai pihak.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Pertumbuhan Berkelanjutan</h4>
+                                <p>Menjaga pertumbuhan jangka panjang dengan strategi yang tepat.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Tim Berpengalaman</h4>
+                                <p>Didukung oleh profesional dengan pengalaman di berbagai bidang.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#companies" class="btn btn-primary">Jelajahi Perusahaan Kami</a>
+                </div>
+                <div class="about-visual">
+                    <div class="visual-main"></div>
+                    <div class="visual-card">
+                        <h4>Transformasi Digital</h4>
+                        <p>Membantu bisnis beradaptasi dengan era digital melalui solusi teknologi.</p>
+                    </div>
+                    <div class="visual-card">
+                        <h4>Inovasi Berkelanjutan</h4>
+                        <p>Terus berinovasi untuk menciptakan produk dan layanan yang relevan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companies Section -->
+    <section class="section companies" id="companies">
+        <div class="container">
+            <div class="section-title">
+                <div class="subtitle">Portofolio Perusahaan</div>
+                <h2>Ekosistem Withus Group</h2>
+                <p>Diversifikasi bisnis kami mencakup berbagai sektor industri dengan fokus pada teknologi, kreativitas, dan dampak sosial.</p>
+            </div>
+            <div class="companies-grid">
+                <!-- Withus Media -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #3498db;">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Media</h3>
+                            <p>Platform Media Digital</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Platform media digital yang menyajikan berita terkini, konten informatif, dan hiburan berkualitas untuk masyarakat modern dengan jangkauan luas.</p>
+                        <div class="company-tags">
+                            <span class="tag">Berita Digital</span>
+                            <span class="tag">Konten Kreatif</span>
+                            <span class="tag">Platform Media</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Apps -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #9b59b6;">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Apps</h3>
+                            <p>Pengembangan Aplikasi</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Pengembangan aplikasi web dan mobile yang inovatif dengan pengalaman pengguna yang luar biasa dan teknologi terkini untuk berbagai platform.</p>
+                        <div class="company-tags">
+                            <span class="tag">Aplikasi Mobile</span>
+                            <span class="tag">Pengembangan Web</span>
+                            <span class="tag">UI/UX Design</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Tech -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #e74c3c;">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Tech</h3>
+                            <p>Riset & Pengembangan</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Pusat penelitian dan pengembangan teknologi masa depan termasuk AI, IoT, cloud computing, dan sistem otomasi untuk solusi bisnis modern.</p>
+                        <div class="company-tags">
+                            <span class="tag">Artificial Intelligence</span>
+                            <span class="tag">Internet of Things</span>
+                            <span class="tag">Cloud Computing</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Creative -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #f39c12;">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Creative</h3>
+                            <p>Agen Kreatif</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Agen kreatif yang menyediakan solusi branding, desain grafis, produksi video, dan kampanye pemasaran yang impactful untuk berbagai klien.</p>
+                        <div class="company-tags">
+                            <span class="tag">Branding</span>
+                            <span class="tag">Desain Grafis</span>
+                            <span class="tag">Produksi Video</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Commerce -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #2ecc71;">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Commerce</h3>
+                            <p>E-commerce & Marketplace</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Platform e-commerce dan marketplace yang menghubungkan bisnis dengan konsumen melalui pengalaman berbelanja digital yang unggul dan aman.</p>
+                        <div class="company-tags">
+                            <span class="tag">E-commerce</span>
+                            <span class="tag">Marketplace</span>
+                            <span class="tag">Retail Digital</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Academy -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #1abc9c;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Academy</h3>
+                            <p>Pendidikan Digital</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Lembaga pendidikan yang menyelenggarakan kursus, bootcamp, dan webinar di bidang teknologi, kreativitas, dan kewirausahaan.</p>
+                        <div class="company-tags">
+                            <span class="tag">Pendidikan Digital</span>
+                            <span class="tag">Bootcamp</span>
+                            <span class="tag">Webinar</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Studio -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #e67e22;">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Studio</h3>
+                            <p>Produksi Konten Hiburan</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Studio produksi konten hiburan berkualitas tinggi termasuk film, animasi, podcast, dan musik untuk berbagai platform digital.</p>
+                        <div class="company-tags">
+                            <span class="tag">Produksi Film</span>
+                            <span class="tag">Animasi</span>
+                            <span class="tag">Podcast</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Capital -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #34495e;">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Capital</h3>
+                            <p>Investasi & Inkubasi</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Perusahaan investasi dan inkubasi yang mendukung startup berbasis teknologi dan kreatif dengan pendanaan dan mentorship berkualitas.</p>
+                        <div class="company-tags">
+                            <span class="tag">Investasi</span>
+                            <span class="tag">Inkubasi Startup</span>
+                            <span class="tag">Venture Capital</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withus Foundation -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon" style="background: #16a085;">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="company-title">
+                            <h3>Withus Foundation</h3>
+                            <p>Program Sosial & CSR</p>
+                        </div>
+                    </div>
+                    <div class="company-content">
+                        <p>Lembaga nirlaba yang fokus pada program CSR, pelatihan digital untuk UMKM, beasiswa, dan proyek keberlanjutan lingkungan.</p>
+                        <div class="company-tags">
+                            <span class="tag">CSR</span>
+                            <span class="tag">Pelatihan UMKM</span>
+                            <span class="tag">Beasiswa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section" id="values">
+        <div class="container">
+            <div class="section-title">
+                <div class="subtitle">Nilai-Nilai Kami</div>
+                <h2>Prinsip yang Membimbing Setiap Langkah Kami</h2>
+                <p>Nilai-nilai ini menjadi fondasi dalam setiap keputusan dan tindakan yang kami ambil untuk menciptakan dampak positif.</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Inovasi</h3>
+                    <p>Kami terus mendorong batas-batas kreativitas dan teknologi untuk menciptakan solusi yang revolusioner dan berdampak.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Kolaborasi</h3>
+                    <p>Kami percaya kekuatan terbesar datang dari kerja sama tim dan kemitraan yang saling menguntungkan untuk mencapai tujuan bersama.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Integritas</h3>
+                    <p>Kejujuran, transparansi, dan etika bisnis menjadi fondasi dalam setiap interaksi dan operasional perusahaan kami.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Dampak Sosial</h3>
+                    <p>Kami berkomitmen untuk menciptakan nilai tidak hanya bagi bisnis, tetapi juga bagi masyarakat dan lingkungan sekitar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Siap Berkolaborasi dengan Kami?</h2>
+                <p>Mari bersama-sama menciptakan solusi inovatif yang membawa perubahan positif bagi dunia digital.</p>
+                <a href="#contact" class="btn">Hubungi Kami Sekarang</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column footer-about">
+                    <h3>Withus Group</h3>
+                    <p>Ekosistem perusahaan yang berfokus pada pengembangan teknologi, media, kreativitas, dan pendidikan untuk menciptakan solusi berdampak bagi masyarakat dan bisnis.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Perusahaan Kami</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Withus Media</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Withus Apps</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Withus Tech</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Withus Creative</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Withus Commerce</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Tautan Cepat</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> Tentang</a></li>
+                        <li><a href="#companies"><i class="fas fa-chevron-right"></i> Perusahaan</a></li>
+                        <li><a href="#values"><i class="fas fa-chevron-right"></i> Nilai</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jl. Pandawa No. 395, Jakarta Pusat</a></li>
+                        <li><a href="tel:+622112345678"><i class="fas fa-phone"></i> +62 21 1234 5678</a></li>
+                        <li><a href="mailto:info@withusgroup.com"><i class="fas fa-envelope"></i> info@withusgroup.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Senin - Jumat: 9:00 - 17:00</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Withus Group. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                document.getElementById('header').classList.add('scrolled');
+            } else {
+                document.getElementById('header').classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Hero section animations
+        gsap.from('.hero-badge', {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            delay: 0.5
+        });
+        
+        gsap.from('.hero h1', {
+            duration: 1.2,
+            y: 60,
+            opacity: 0,
+            delay: 0.8
+        });
+        
+        gsap.from('.hero p', {
+            duration: 1.2,
+            y: 40,
+            opacity: 0,
+            delay: 1
+        });
+        
+        gsap.from('.hero-actions', {
+            duration: 1,
+            y: 40,
+            opacity: 0,
+            delay: 1.2
+        });
+        
+        gsap.from('.hero-stats', {
+            duration: 1,
+            y: 40,
+            opacity: 0,
+            delay: 1.4
+        });
+        
+        gsap.from('.floating-card', {
+            duration: 1.5,
+            y: 100,
+            opacity: 0,
+            stagger: 0.3,
+            delay: 1.6
+        });
+        
+        // Section animations
+        gsap.utils.toArray('.section').forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1.2
+            });
+        });
+        
+        // Company card animations
+        gsap.utils.toArray('.company-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1
+            });
+        });
+        
+        // Value card animations
+        gsap.utils.toArray('.value-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.15
+            });
+        });
+        
+        // Particle.js Background
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple particle effect as a placeholder
+            // In a real implementation, you would use the particles.js library
+            const canvas = document.createElement('canvas');
+            canvas.id = 'particle-canvas';
+            canvas.style.position = 'absolute';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.zIndex = '0';
+            document.getElementById('particles-js').appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const particles = [];
+            const particleCount = 50;
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.color = `rgba(26, 58, 143, ${Math.random() * 0.3})`;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    else if (this.x < 0) this.x = canvas.width;
+                    
+                    if (this.y > canvas.height) this.y = 0;
+                    else if (this.y < 0) this.y = canvas.height;
+                }
+                
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            function init() {
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            init();
+            animate();
+            
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        });
+    </script>
+</body>
+</html>
