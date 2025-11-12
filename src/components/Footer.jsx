@@ -41,7 +41,7 @@ const Footer = () => {
               </li>
               <li><a href="#"><i className="fas fa-chevron-right"></i> Withus Tech</a></li>
               <li><a href="#"><i className="fas fa-chevron-right"></i> Withus Creative</a></li>
-              // Di dalam Footer.jsx, tambahkan:
+
               <li>
                 <Link to="/withus-media">
                   <i className="fas fa-chevron-right"></i> Withus Media
